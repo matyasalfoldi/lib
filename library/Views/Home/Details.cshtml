@@ -1,0 +1,85 @@
+﻿@using System;
+@using System.Globalization;
+@using Microsoft.AspNetCore.Http;
+@using library.Models;
+@using library.ViewModels;
+
+@model DetailsViewModel
+
+
+<div class="contentHead">@Model.Book.Title</div>
+<div class="contentBody">
+    <table width="600">
+        <tr>
+            <td>
+                <strong>Author:</strong> @Model.Book.Author
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>ISBN:</strong> @Model.Book.ISBN
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Release date: </strong> @Model.Book.ReleaseDate
+            </td>
+        </tr>
+        @if (ViewBag.ImageId != null)
+        {
+            <tr>
+                <td>
+                    <div class="contentComment">
+                        <strong>Cover Image:</strong><br />
+                        <a asp-action="Image" asp-route-bookId="@ViewBag.ImageId" asp-route-large="true" target="_blank">
+                            <img src="@Url.Action("ImageForBook", new { bookId = ViewBag.ImageId })" class="contentImage" />
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<table width="600">
+    @foreach (Volume volume in Model.Volumes)
+    {
+        <tr>
+            <td>
+                <div class="contentComment">
+                    <strong>
+                        @Model.Book.Title
+                    </strong>
+                    <br />
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Rent" asp-action="Index" asp-route-volumeId="@volume.Id" class="contentLink">Rent book</a>
+                }
+            </td>
+        </tr>
+    <tr>
+        <td>
+            <div class="contentComment">
+                <strong>
+                    Active/Future volume rents:<br />
+                </strong>
+                @foreach (var rent in volume.Rents)
+                {
+                    if (rent.IsActiveOrFutureRent())
+                    {
+                        <strong>Start: </strong>
+                        @rent.StartDate <br />
+                        <strong>End: </strong>
+                        @rent.EndDate <br />
+                    }
+                }
+            </div>
+        </td>
+    </tr>
+}
+</table>
+

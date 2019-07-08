@@ -1,0 +1,86 @@
+﻿@using library.Models;
+@using library.ViewModels;
+@using Microsoft.AspNetCore.Http;
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Online book rental</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css" />
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+    </environment>
+</head>
+<body>
+    <div class="header">
+        <div class="headerText">
+            <h1>
+                Online book rental
+            </h1>
+        </div>
+    </div>
+    <div class="headerAdmin">
+        @if (ViewBag.CurrentUserName == null)
+        {
+            <table>
+                <tr>
+                    <td>
+                        <a asp-controller="Account" asp-action="Login">Login</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Account" asp-action="Register">Register</a>
+                    </td>
+                </tr>
+            </table>
+        } else {
+            <table>
+                <tr>
+                    <td colspan="2"> Welcome, @ViewBag.CurrentUserName!
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a asp-controller="Account" asp-action="Logout">Logout</a>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr></tr>
+            </table>
+        }
+    </div>
+    <div class="content">
+        <div class="leftColumn">
+            @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+            {
+                <b>Search by:</b>
+                @Html.RadioButton("searchType", "Title", true) <text>Title</text>
+                @Html.RadioButton("searchType", "Author") <text>Author</text>
+                <br />
+                <b>Sort by:</b>
+                @Html.RadioButton("sortType", "Popularity", true) <text>Popularity</text>
+                @Html.RadioButton("sortType", "Lexicographical")<text>Lexicographical</text>
+                @Html.TextBox("filter") <input type="submit" value="Search" />
+             }
+        </div>
+        <div class="rightColumn">
+            @RenderBody()
+        </div>
+    </div>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

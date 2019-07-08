@@ -1,0 +1,57 @@
+﻿@using library.Models;
+@using library.ViewModels;
+
+@model LoginViewModel
+
+<form asp-controller="Account" asp-action="Login">
+
+    <table>
+        <tr>
+            <td colspan="2">
+                <div asp-validation-summary="ModelOnly" class="failureNotification"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="contentHead">
+                    Login data:
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="120">
+                UserName:
+            </td>
+            <td class="failureNotification">
+                <input asp-for="UserName" />
+                <span asp-validation-for="UserName"></span>
+            </td>
+        </tr>
+        <tr>
+            <td width="120">
+                Password:
+            </td>
+            <td class="failureNotification">
+                <input asp-for="UserPassword" />
+                <span asp-validation-for="UserPassword"></span>
+            </td>
+        </tr>
+        <tr>
+            <td width="120"></td>
+            <td>
+                <input asp-for="RememberLogin" />
+                Remember login
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" height="50">
+                <input type="submit" value="Login" class="button" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+@section Scripts
+{
+    @{ Html.RenderPartial("_ValidationScriptsPartial"); }
+}

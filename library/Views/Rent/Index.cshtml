@@ -1,0 +1,104 @@
+﻿@using library.Models;
+@using library.ViewModels;
+
+@model RentViewModel
+
+<div class="contentHead">@Model.Book.Title</div>
+<div class="contentBody">
+    <table width="600">
+        <tr>
+            <td>
+                <strong>Author:</strong> @Model.Book.Author
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>ISBN:</strong> @Model.Book.ISBN
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Release Date:</strong> @Model.Book.ReleaseDate
+            </td>
+        </tr>
+    </table>
+
+    <form asp-controller="Rent" asp-action="Index" asp-route-volumeId="@Model.Volume.Id">
+        <table>
+            <tr>
+                <td colspan="2" valign="middle">
+
+                    <div asp-validation-summary="ModelOnly" class="failureNotification"></div>
+
+                    <div class="contentHead">
+                        Personal data:
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Name:
+                </td>
+                <td>
+                    <input readonly="readonly" asp-for="Name" />
+                    <span asp-validation-for="Name"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    E-mail cím:
+                </td>
+                <td class="failureNotification">
+                    <input asp-for="UserEmail" size="40" />
+                    <span asp-validation-for="UserEmail"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Phone Number:
+                </td>
+                <td>
+                    <input asp-for="UserPhoneNumber" />
+                    <span asp-validation-for="UserPhoneNumber"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Billing Address:
+                </td>
+                <td class="failureNotification">
+                    <input asp-for="UserAddress" />
+                    <span asp-validation-for="UserAddress"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Rent start date:
+                </td>
+                <td class="failureNotification">
+                    <input asp-for="RentStartDate" />
+                    <span asp-validation-for="RentStartDate"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Rent end date:
+                </td>
+                <td class="failureNotification">
+                    <input asp-for="RentEndDate" />
+                    <span asp-validation-for="RentEndDate"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <input type="submit" value="Rent" class="button" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+@section Scripts
+{
+    @{ Html.RenderPartial("_ValidationScriptsPartial"); }
+}

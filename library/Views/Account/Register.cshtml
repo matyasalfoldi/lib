@@ -1,0 +1,104 @@
+﻿@using library.Models;
+@using library.ViewModels;
+
+@model RegistrationViewModel
+
+<form asp-controller="Account" asp-action="Register">
+
+    <table>
+        <tr>
+            <td colspan="3">
+                <div class="failureNotification">@Html.ValidationSummary(true, "The registration was unsuccessful!")</div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <div class="contentHead">
+                    Personal data:
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="120">
+                Name:
+            </td>
+            <td class="failureNotification" colspan="2">
+                <input asp-for="Name" size="40" />
+                <span asp-validation-for="Name"></span>
+            </td>
+
+        </tr>
+        <tr>
+            <td width="120">
+                Billing address:
+            </td>
+            <td class="failureNotification" colspan="2">
+                <input asp-for="UserAddress" size="40" />
+                <span asp-validation-for="UserAddress"></span>
+            </td>
+        </tr>
+        <tr>
+            <td width="120">
+                E-mail address:
+            </td>
+            <td class="failureNotification" colspan="2">
+                <input asp-for="UserEmail" size="40" />
+                <span asp-validation-for="UserEmail"></span>
+            </td>
+        </tr>
+        <tr>
+            <td width="120">
+                Phonenumber:
+            </td>
+            <td class="failureNotification" colspan="2">
+                <input asp-for="UserPhoneNumber" size="40" />
+                <span asp-validation-for="UserPhoneNumber"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <div class="contentHead">
+                    Login data:
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="150" colspan="2">
+                Username:
+            </td>
+            <td class="failureNotification">
+                <input asp-for="UserName" />
+                <span asp-validation-for="UserName"></span>
+            </td>
+        </tr>
+        <tr>
+            <td width="150" colspan="2">
+                Password:
+            </td>
+            <td class="failureNotification">
+                <input asp-for="UserPassword" />
+                <span asp-validation-for="UserPassword"></span>
+            </td>
+        </tr>
+        <tr>
+            <td width="150" colspan="2">
+                Password:
+            </td>
+            <td class="failureNotification">
+                <input asp-for="UserConfirmPassword" />
+                <span asp-validation-for="UserConfirmPassword"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" height="70">
+                <br />The username and the password must be between 5-40 chars. It can only contain letters,numbers and hyphens.<br /><br />
+                <input type="submit" value="Register" class="button" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+@section Scripts
+{    
+    @{ Html.RenderPartial("_ValidationScriptsPartial"); }
+}

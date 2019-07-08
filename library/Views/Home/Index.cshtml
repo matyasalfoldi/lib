@@ -1,0 +1,47 @@
+﻿@using library.Models;
+@using library.ViewModels;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+@model IPagedList<Book>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="contentText">Currently we don't have any books.</div>
+}
+else
+{
+    <table>
+        @for (Int32 i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>
+                    <table border="0" width="300">
+                        <tr class="bookItem">
+                            <td>
+                                <img src="@Url.Action("ImageForBook", new {bookId = Model[i].Id})" class="contentImage" />
+                            </td>
+                            <td>
+                                <div class="bookItemHead">
+                                    <a asp-action="Details" asp-route-bookId="@Model[i].Id">@Model[i].Title</a>
+                                </div>
+                                <div class="bookItemContent">
+                                    <strong>Author: </strong>@Model[i].Author<br />
+                                    <strong>ISBN: </strong>@Model[i].ISBN<br />
+                                    <strong>Release Date: </strong>@Model[i].ReleaseDate<br />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        }
+        @Html.PagedListPager(Model,
+            page => Url.Action("Index",
+                    new { page,
+                        searchType = Context.Request.Query["searchType"],
+                        sortType = Context.Request.Query["sortType"],
+                        filter = Context.Request.Query["filter"]
+                    }))
+    </table>
+}

@@ -7,11 +7,11 @@ namespace library.ViewModels
     {
         [Required(ErrorMessage = "A felhasználónév megadása kötelező.")]
         public String UserName { get; set; }
-        
+
         [Required(ErrorMessage = "A jelszó megadása kötelező.")]
-        [DataType(DataType.Password)]        
+        [DataType(DataType.Password)]
         public String UserPassword { get; set; }
-        
-	    public Boolean RememberLogin { get; set; }
-	}
+
+        public Boolean RememberLogin { get; set; }
+    }
 }

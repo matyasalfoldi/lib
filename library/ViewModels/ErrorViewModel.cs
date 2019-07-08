@@ -1,5 +1,3 @@
-using System;
-
 namespace library.ViewModels
 {
     public class ErrorViewModel

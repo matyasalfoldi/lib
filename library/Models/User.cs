@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 
 namespace library.Models
 {
@@ -27,9 +24,9 @@ namespace library.Models
 		 */
 
         public string Name { get; set; }
-        
+
         public string Address { get; set; }
-        
+
         public ICollection<Rent> Rents { get; set; }
     }
 }

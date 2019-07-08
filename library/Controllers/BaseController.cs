@@ -8,20 +8,20 @@ using System.Linq;
 
 namespace library.Controllers
 {
-	public class BaseController : Controller
+    public class BaseController : Controller
     {
         protected readonly ILibraryService _libraryService;
-        
-		public BaseController( ILibraryService libraryService)
+
+        public BaseController(ILibraryService libraryService)
         {
             _libraryService = libraryService;
         }
-        
-	    public override void OnActionExecuted(ActionExecutedContext context)
-	    {
-		    base.OnActionExecuted(context);
-            
-		    ViewBag.CurrentUserName = String.IsNullOrEmpty(User.Identity.Name) ? null : User.Identity.Name;
-	    }
-	}
+
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            base.OnActionExecuted(context);
+
+            ViewBag.CurrentUserName = String.IsNullOrEmpty(User.Identity.Name) ? null : User.Identity.Name;
+        }
+    }
 }

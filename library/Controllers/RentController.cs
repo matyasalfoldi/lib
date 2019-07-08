@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace library.Controllers
 {
-	public class RentController : BaseController
+    public class RentController : BaseController
     {
-		private readonly UserManager<User> _userManager;
-        
-		public RentController(ILibraryService libraryService,
-			UserManager<User> userManager)
-			: base(libraryService)
-		{
-			_userManager = userManager;
-		}
-        
-		[HttpGet]
+        private readonly UserManager<User> _userManager;
+
+        public RentController(ILibraryService libraryService,
+            UserManager<User> userManager)
+            : base(libraryService)
+        {
+            _userManager = userManager;
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Index(Int32? volumeId)
         {
             RentViewModel rent = _libraryService.NewRent(volumeId);
@@ -27,22 +27,22 @@ namespace library.Controllers
             if (rent == null)
                 return RedirectToAction("Index", "Home");
 
-	        if (User.Identity.IsAuthenticated)
-	        {
-		        User user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (User.Identity.IsAuthenticated)
+            {
+                User user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-		        if (user != null)
-		        {
-			        rent.UserAddress = user.Address;
+                if (user != null)
+                {
+                    rent.UserAddress = user.Address;
                     rent.Name = user.Name;
                     rent.UserEmail = user.Email;
-			        rent.UserPhoneNumber = user.PhoneNumber;
-		        }
-	        }
+                    rent.UserPhoneNumber = user.PhoneNumber;
+                }
+            }
 
-			return View("Index", rent);
+            return View("Index", rent);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(Int32? volumeId, RentViewModel rent)
@@ -52,7 +52,7 @@ namespace library.Controllers
 
             rent.Volume = _libraryService.GetVolume(volumeId);
             rent.Book = _libraryService.GetBook(rent.Volume.BookId);
-            
+
             if (rent.Volume == null)
                 return RedirectToAction("Index", "Home");
 
@@ -75,10 +75,10 @@ namespace library.Controllers
                     break;
             }
 
-			if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return View("Index", rent);
 
-	        User user = await _userManager.FindByNameAsync(User.Identity.Name);
+            User user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             if (!_libraryService.SaveRent(volumeId, user.UserName, rent))
             {
@@ -86,7 +86,7 @@ namespace library.Controllers
                 return View("Index", rent);
             }
 
-			ViewBag.Message = "The renting of the volume was successfull!";
+            ViewBag.Message = "The renting of the volume was successfull!";
             return View("Result", rent);
         }
     }

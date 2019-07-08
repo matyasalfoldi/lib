@@ -8,7 +8,7 @@ namespace library.ViewModels
         [Required(ErrorMessage = "You must give a name!")]
         [StringLength(60, ErrorMessage = "The name can be maximum 60 characters!")]
         public String Name { get; set; }
-        
+
         [Required(ErrorMessage = "You must give an address!")]
         public String UserAddress { get; set; }
 

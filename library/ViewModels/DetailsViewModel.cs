@@ -1,8 +1,5 @@
-﻿using System;
+﻿using library.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using library.Models;
 
 namespace library.ViewModels
 {
@@ -11,6 +8,6 @@ namespace library.ViewModels
         public Book Book { get; set; }
 
         public IEnumerable<Volume> Volumes { get; set; }
-        
+
     }
 }

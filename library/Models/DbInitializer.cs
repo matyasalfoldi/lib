@@ -1,22 +1,21 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace library.Models
 {
     public static class DbInitializer
     {
         private static LibraryContext _context;
-        
+
         public static void Initialize(IApplicationBuilder app, string imageDirectory)
         {
             _context = app.ApplicationServices.GetRequiredService<LibraryContext>();
-            
+
             _context.Database.EnsureCreated();
 
             if (_context.Users.Any())
@@ -233,7 +232,7 @@ namespace library.Models
                 LockoutEnabled = true,
                 NormalizedUserName = "JANIJOZSI",
                 NormalizedEmail = "ABC@ASD.CRE",
-                SecurityStamp  = Guid.NewGuid().ToString(),
+                SecurityStamp = Guid.NewGuid().ToString(),
             };
             jani.PasswordHash = passwordHasher.HashPassword(jani, "Abcdabcd1");
             users.Add(jani);
@@ -271,7 +270,7 @@ namespace library.Models
                 SecurityStamp = Guid.NewGuid().ToString(),
             };
             lib.PasswordHash = passwordHasher.HashPassword(lib, "Abcdabcd1");
-            
+
             _context.Librarians.Add(lib);
 
             _context.SaveChanges();

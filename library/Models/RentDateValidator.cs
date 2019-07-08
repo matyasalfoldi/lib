@@ -5,13 +5,13 @@ namespace library.Models
 {
     public class RentDateValidator
     {
-	    private readonly LibraryContext _context;
+        private readonly LibraryContext _context;
 
-		public RentDateValidator(LibraryContext context)
-		{
-			_context = context;
-		}
-        
+        public RentDateValidator(LibraryContext context)
+        {
+            _context = context;
+        }
+
         public RentDateError Validate(DateTime start, DateTime end, Int32 volumeId)
         {
             if (start < DateTime.Today.Date)
@@ -22,7 +22,7 @@ namespace library.Models
 
             if (end == start)
                 return RentDateError.LengthInvalid;
-			
+
             Volume selectedVolume = _context.Volumes.FirstOrDefault(volume => volume.Id == volumeId);
 
             if (selectedVolume == null)

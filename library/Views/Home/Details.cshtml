@@ -61,25 +61,25 @@
                 }
             </td>
         </tr>
-    <tr>
-        <td>
-            <div class="contentComment">
-                <strong>
-                    Active/Future volume rents:<br />
-                </strong>
-                @foreach (var rent in volume.Rents)
-                {
-                    if (rent.IsActiveOrFutureRent())
+        <tr>
+            <td>
+                <div class="contentComment">
+                    <strong>
+                        Active/Future volume rents:<br />
+                    </strong>
+                    @foreach (var rent in volume.Rents)
                     {
-                        <strong>Start: </strong>
-                        @rent.StartDate <br />
-                        <strong>End: </strong>
-                        @rent.EndDate <br />
+                        if (rent.IsActiveOrFutureRent())
+                        {
+                            <strong>Start: </strong>
+                            @rent.StartDate <br />
+                            <strong>End: </strong>
+                            @rent.EndDate <br />
+                        }
                     }
-                }
-            </div>
-        </td>
-    </tr>
-}
+                </div>
+            </td>
+        </tr>
+    }
 </table>
 

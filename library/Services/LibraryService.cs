@@ -1,10 +1,10 @@
-﻿using System;
+﻿using library.Models;
+using library.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using library.Models;
-using library.ViewModels;
 
 namespace library.Services
 {
@@ -102,7 +102,7 @@ namespace library.Services
         {
             if (volumeId == null)
                 return null;
-            
+
 
             RentViewModel rent = new RentViewModel
             {
@@ -148,13 +148,13 @@ namespace library.Services
         {
             if (volumeId == null || rent == null)
                 return false;
-            
+
             if (!Validator.TryValidateObject(rent, new ValidationContext(rent, null, null), null))
                 return false;
-            
+
             if (_rentDateValidator.Validate(rent.RentStartDate, rent.RentEndDate, volumeId.Value) != RentDateError.None)
                 return false;
-            
+
             User user = _context.Users
                 .FirstOrDefault(u => u.UserName == userName);
 
@@ -174,10 +174,10 @@ namespace library.Services
             {
                 //Update the default values, if the user gives a different phone number, or address
                 user.PhoneNumber = user.PhoneNumber == rent.UserPhoneNumber ?
-                                    user.PhoneNumber : 
+                                    user.PhoneNumber :
                                     rent.UserPhoneNumber;
                 user.Address = user.Address == rent.UserAddress ?
-                                user.Address : 
+                                user.Address :
                                 rent.UserAddress;
                 user.Email = user.Email == rent.UserEmail ?
                                 user.Email :
@@ -188,7 +188,7 @@ namespace library.Services
             {
                 return false;
             }
-            
+
             return true;
         }
     }

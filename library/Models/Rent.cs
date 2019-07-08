@@ -8,7 +8,7 @@ namespace library.Models
     {
         [Key]
         public int Id { get; set; }
-        
+
         public int VolumeId { get; set; }
 
         [ForeignKey("User")]
@@ -19,7 +19,7 @@ namespace library.Models
 
         public Volume Volume { get; set; }
         public User User { get; set; }
-        
+
         public Boolean IsConflicting(DateTime startDate, DateTime endDate)
         {
             return StartDate >= startDate && StartDate < endDate ||
@@ -30,7 +30,7 @@ namespace library.Models
 
         public Boolean IsActiveOrFutureRent()
         {
-            return Active || 
+            return Active ||
                    StartDate >= DateTime.Today.Date;
         }
     }
